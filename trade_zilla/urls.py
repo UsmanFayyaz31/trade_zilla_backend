@@ -16,10 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-# app_name = 'trade_zilla'
-
 urlpatterns = [
-    path('', admin.site.urls),
-    # path('admin/', admin.site.urls),
-    path('auth/', include('users.urls'))
+    path('admin/', admin.site.urls),
+    path('auth/', include('users.urls')),
+    path('location', include('location.urls'))
 ]

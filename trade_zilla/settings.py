@@ -27,8 +27,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=15),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=15),
 }
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'rest_framework.authtoken',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
