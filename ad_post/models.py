@@ -10,6 +10,7 @@ class AdPost(models.Model):
     item_required = models.TextField(null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    address = models.TextField(null=True)
 
     def __str__(self):
         return self.product_name

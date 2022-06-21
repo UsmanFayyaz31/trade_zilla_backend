@@ -5,7 +5,7 @@ from location.models import Location
 
 
 class AdPostAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product_name', 'item_required', 'get_user_email', 'get_location')
+    list_display = ('id', 'product_name', 'item_required', 'get_user_email', 'address', 'get_location')
 
     @admin.display(description='User Email')
     def get_user_email(self, obj):
