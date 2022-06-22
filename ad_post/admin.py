@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ad_post.models import AdPost, ExchangeWithRequests
+from ad_post.models import AdPost, ExchangeRequest
 from users.models import User
 from location.models import Location
 
@@ -17,9 +17,9 @@ class AdPostAdmin(admin.ModelAdmin):
 
 
 class ExchangeWithRequestsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'product', 'exchanged_with')
+    list_display = ('id', 'user', 'product', 'exchange_with')
 
 
 # Register your models here.
 admin.site.register(AdPost, AdPostAdmin)
-admin.site.register(ExchangeWithRequests, ExchangeWithRequestsAdmin)
+admin.site.register(ExchangeRequest, ExchangeWithRequestsAdmin)
