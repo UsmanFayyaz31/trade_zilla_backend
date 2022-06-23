@@ -10,7 +10,8 @@ class AdPostSerializer(serializers.ModelSerializer):
                   "item_required",
                   "location",
                   "user",
-                  "address")
+                  "address",
+                  "product_image")
 
     def create(self, validated_data):
         ad_post = AdPost.objects.create(
@@ -19,7 +20,8 @@ class AdPostSerializer(serializers.ModelSerializer):
             item_required=validated_data['item_required'],
             location_id=validated_data['location'].id,
             user_id=validated_data['user'].id,
-            address=validated_data['address']
+            address=validated_data['address'],
+            product_image=validated_data['product_image']
         )
 
         return ad_post
