@@ -23,3 +23,8 @@ class ExchangeRequest(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class FavoriteProduct(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(AdPost, on_delete=models.CASCADE)
