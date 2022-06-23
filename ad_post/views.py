@@ -1,37 +1,43 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 from django.http import JsonResponse
 from rest_framework import status
 from ad_post.models import AdPost, ExchangeRequest
 from ad_post.serializers import AdPostSerializer, ExchangeRequestSerializer
+from rest_framework import parsers
 
 
-class AdPostViewSet(generics.RetrieveAPIView):
-    def retrieve(self, request, *args, **kwargs):
-        ad_posts = list(AdPost.objects.all().values())
+class AdPostViewSet(generics.ListCreateAPIView):
+    queryset = ExchangeRequest.objects.all()
+    serializer_class = AdPostSerializer
+
+    def get(self, request, *args, **kwargs):
+        ad_posts = list(self.queryset.values())
 
         for ad_post in ad_posts:
             exchange_requests = list(
-                ExchangeRequest.objects.filter(product=ad_post["id"]).values('exchange_with', 'user__email'))
+                self.queryset.filter(product=ad_post["id"]).values('exchange_with', 'user__email'))
             ad_post['exchange_with_requests'] = exchange_requests
 
         return JsonResponse({'data': ad_posts})
 
-    def post(self, request, *args, **kwargs):
-        ad_post = AdPostSerializer(data=request.data)
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
 
-        if ad_post.is_valid():
-            ad_post.save()
-            return JsonResponse(data=ad_post.data, status=status.HTTP_201_CREATED)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(data=serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse(data={"errors": serializer.errors}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class ExchangeRequestViewSet(generics.RetrieveAPIView):
-    def post(self, request, *args, **kwargs):
-        exchange_request = ExchangeRequestSerializer(data=request.data)
+class ExchangeRequestViewSet(generics.CreateAPIView):
+    serializer_class = ExchangeRequestSerializer
 
-        if exchange_request.is_valid():
-            exchange_request.save()
-            return JsonResponse(data=exchange_request.data, status=status.HTTP_201_CREATED)
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=self.request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(data=serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return JsonResponse(status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse(data={"errors": serializer.errors}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
