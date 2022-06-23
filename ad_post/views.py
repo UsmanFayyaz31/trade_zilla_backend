@@ -1,9 +1,8 @@
-from rest_framework import generics, permissions
+from rest_framework import generics
 from django.http import JsonResponse
 from rest_framework import status
-from ad_post.models import AdPost, ExchangeRequest
+from ad_post.models import ExchangeRequest
 from ad_post.serializers import AdPostSerializer, ExchangeRequestSerializer
-from rest_framework import parsers
 
 
 class AdPostViewSet(generics.ListCreateAPIView):
@@ -11,7 +10,8 @@ class AdPostViewSet(generics.ListCreateAPIView):
     serializer_class = AdPostSerializer
 
     def get(self, request, *args, **kwargs):
-        ad_posts = list(self.queryset.values())
+        ad_posts = list(self.queryset.values('product__product_image', 'id', 'exchange_with', 'user_id',
+                                             'product_id'))
 
         for ad_post in ad_posts:
             exchange_requests = list(
