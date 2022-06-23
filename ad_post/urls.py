@@ -1,6 +1,9 @@
 from django.urls import path
-from ad_post.views import AdPostViewSet
+from ad_post.views import AdPostViewSet, ExchangeRequestViewSet
+
+app_name = 'ad_post'
 
 urlpatterns = [
-    path('/', AdPostViewSet.as_view(), name='get_ad_post')
+    path('posts/', AdPostViewSet.as_view(), name='ad_post'),
+    path('exchange_requests/', ExchangeRequestViewSet.as_view(), name='exchange_requests'),
 ]

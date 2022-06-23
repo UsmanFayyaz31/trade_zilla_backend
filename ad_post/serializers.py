@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import AdPost
+from .models import AdPost, ExchangeRequest
 
 
 class AdPostSerializer(serializers.ModelSerializer):
@@ -23,3 +23,18 @@ class AdPostSerializer(serializers.ModelSerializer):
         )
 
         return ad_post
+
+
+class ExchangeRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExchangeRequest
+        fields = ("exchange_with", "user", "product")
+
+    def create(self, validated_data):
+        exchange_request = ExchangeRequest.objects.create(
+            exchange_with=validated_data['exchange_with'],
+            user_id=validated_data['user'].id,
+            product_id=validated_data['product'].id
+        )
+
+        return exchange_request

@@ -16,8 +16,8 @@ class AdPost(models.Model):
         return self.product_name
 
 
-class ExchangeWithRequests(models.Model):
-    exchanged_with = models.TextField(null=True)
+class ExchangeRequest(models.Model):
+    exchange_with = models.TextField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(AdPost, on_delete=models.CASCADE)
 
