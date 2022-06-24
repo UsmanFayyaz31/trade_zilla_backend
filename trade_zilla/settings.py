@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'users',
     'ad_post',
     'location',
+    'category',
 ]
 
 MIDDLEWARE = [

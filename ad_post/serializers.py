@@ -10,6 +10,7 @@ class AdPostSerializer(serializers.ModelSerializer):
                   "item_required",
                   "location",
                   "user",
+                  'category',
                   "address",
                   "product_image")
 
@@ -20,6 +21,7 @@ class AdPostSerializer(serializers.ModelSerializer):
             item_required=validated_data['item_required'],
             location_id=validated_data['location'].id,
             user_id=validated_data['user'].id,
+            category_id=validated_data['category'].id,
             address=validated_data['address'],
             product_image=validated_data['product_image']
         )
