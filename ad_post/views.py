@@ -45,10 +45,17 @@ class AdPostViewSet(generics.ListCreateAPIView):
     serializer_class = AdPostSerializer
 
     def get(self, request, *args, **kwargs):
+        location_id = request.GET.get('location_id', None)
+
+        filters = dict()
+        if location_id:
+            filters.update(location_id=location_id)
+
         ad_posts = list(
-            self.queryset.select_related('exchange_with').values('product_image', 'product_name', 'description',
-                                                                 'item_required', 'id',
-                                                                 'user__email', 'location__city'))
+            self.queryset.select_related('exchange_with').filter(**filters).values('product_image', 'product_name',
+                                                                                   'description',
+                                                                                   'item_required', 'id',
+                                                                                   'user__email', 'location__city'))
 
         for ad_post in ad_posts:
             exchange_requests = list(
