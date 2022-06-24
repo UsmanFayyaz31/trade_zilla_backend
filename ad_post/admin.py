@@ -3,11 +3,13 @@ from ad_post.models import AdPost, ExchangeRequest, FavoriteProduct
 from users.models import User
 from location.models import Location
 from django.utils.html import format_html
+from category.models import Category
 
 
 class AdPostAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'product_name', 'get_product_image_tag', 'item_required', 'get_user_email', 'address', 'get_location')
+        'id', 'product_name', 'get_product_image_tag', 'item_required', 'get_user_email', 'address', 'get_location',
+        'get_category')
 
     @admin.display(description='Product Image')
     def get_product_image_tag(self, obj):
@@ -16,6 +18,10 @@ class AdPostAdmin(admin.ModelAdmin):
                 obj.product_image.url))
         else:
             return None
+
+    @admin.display(description='Category')
+    def get_category(self, obj):
+        return Category.objects.get(id=obj.category_id)
 
     @admin.display(description='User Email')
     def get_user_email(self, obj):
