@@ -21,3 +21,9 @@ python manage.py runserver 0.0.0.0:8000
 source env/bin/activate
 
 python manage.py runserver 0.0.0.0:8000
+
+http://0.0.0.0:8000/admin/ on your pc to access admin panel
+
+Email: admin@admin.com
+
+password: 123456789
