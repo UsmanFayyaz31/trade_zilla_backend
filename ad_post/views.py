@@ -46,16 +46,21 @@ class AdPostViewSet(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         location_id = request.GET.get('location_id', None)
+        category_id = request.GET.get('category_id', None)
 
         filters = dict()
         if location_id:
             filters.update(location_id=location_id)
 
+        if category_id:
+            filters.update(category_id=category_id)
+
         ad_posts = list(
             self.queryset.select_related('exchange_with').filter(**filters).values('product_image', 'product_name',
                                                                                    'description',
                                                                                    'item_required', 'id',
-                                                                                   'user__email', 'location__city'))
+                                                                                   'user__email', 'location__city',
+                                                                                   'category__label'))
 
         for ad_post in ad_posts:
             exchange_requests = list(

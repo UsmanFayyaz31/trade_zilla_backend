@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 from location.models import Location
+from category.models import Category
 
 
 class AdPost(models.Model):
@@ -9,6 +10,7 @@ class AdPost(models.Model):
     item_required = models.TextField(null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     address = models.TextField(null=True)
     product_image = models.ImageField(upload_to='images/', null=True)
 
