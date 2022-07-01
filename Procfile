@@ -1,0 +1,1 @@
+web: gunicorn trade_zilla.wsgi --log-file -
