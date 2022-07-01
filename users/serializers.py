@@ -18,6 +18,7 @@ class CustomTokenObtainPairSerializer(EmailTokenObtainSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
 
+        data["success"] = True
         data["email"] = self.user.email
         data["first_name"] = self.user.first_name
         data["last_name"] = self.user.last_name
