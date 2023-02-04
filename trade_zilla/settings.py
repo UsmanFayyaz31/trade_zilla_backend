@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'ad_post',
     'location',
     'category',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -80,14 +81,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'trade_zilla.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+# aws data base
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'postgres',
+    'USER': 'postgres',
+    'PASSWORD': 'postgres',
+    'HOST': 'trade-zilla-postgres.ctx7jo5s1qbj.us-east-1.rds.amazonaws.com',
+    'PORT': '5432',
+  }
 }
 
 # Password validation
@@ -127,3 +130,15 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_S3_ACCESS_KEY_ID = 'AKIA6RMICCONHB6WTUQT'
+
+AWS_S3_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME = 'tradezillaimages'
+
+AWS_QUERYSTRING_AUTH = False
+
+AWS_S3_FILE_OVERWRITE = False

@@ -14,6 +14,10 @@ class FavoriteProductViewSet(generics.GenericAPIView):
             response = list(self.queryset.filter(user_id=request.GET['user_id'])
                             .values('id', 'product__product_name', 'product__product_image', 'product__item_required',
                                     'product__address'))
+
+            for res in response:
+                res['product__product_image'] = 'https://tradezillaimages.s3.amazonaws.com/' + res['product__product_image']
+
             return JsonResponse(data=response, status=status.HTTP_200_OK, safe=False)
         else:
             return JsonResponse(data={'errors': 'User Id not provided.'}, status=status.HTTP_400_BAD_REQUEST,
@@ -66,6 +70,7 @@ class AdPostViewSet(generics.ListCreateAPIView):
             exchange_requests = list(
                 self.queryset.filter(id=ad_post["id"]).values('exchangerequest__exchange_with', 'user__email'))
             ad_post['exchange_with_requests'] = exchange_requests
+            ad_post['product_image'] = 'https://tradezillaimages.s3.amazonaws.com/' + ad_post['product_image']
 
         return JsonResponse({'data': ad_posts})
 
