@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-gchx93)@s@f4kz3tzibu40yu1r-2e)!q!)oav3u!c37tg@*2#r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -107,6 +107,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
